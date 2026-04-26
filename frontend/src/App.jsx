@@ -17,6 +17,7 @@ import Success from './pages/Success';
 import Certificate from './pages/Certificate';
 import About from './pages/About';
 import Contact from './pages/Contact';
+import AdminPanel from './pages/AdminPanel';
 
 import { AuthProvider } from './context/AuthContext';
 
@@ -58,6 +59,7 @@ function App() {
             <Route path="/certificate/:id" element={<Certificate />} />
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
+            <Route path="/admin" element={<AdminPanel />} />
           </Routes>
           <Footer />
           <Modals />

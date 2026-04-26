@@ -20,6 +20,7 @@ const Navbar = () => {
           <li><Link to="/about">About</Link></li>
           <li><Link to="/contact">Contact</Link></li>
           <li><Link to="/dashboard">Dashboard</Link></li>
+          {user?.role === 'admin' && <li><Link to="/admin" style={{ color: 'var(--secondary)', fontWeight: 'bold' }}>Admin</Link></li>}
         </ul>
         <div className="nav-actions">
           {user ? (

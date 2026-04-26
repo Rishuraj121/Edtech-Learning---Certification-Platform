@@ -1,8 +1,10 @@
 import React, { useContext, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
 import { UIContext } from '../App';
 
 const Modals = () => {
+  const navigate = useNavigate();
   const { API, login } = useContext(AuthContext);
   const { activeModal, openModal, closeModal, showToast } = useContext(UIContext);
 
@@ -24,6 +26,9 @@ const Modals = () => {
         login(data.token, data.user);
         showToast('Logged in successfully', 'success');
         closeModal();
+        if (data.user.role === 'admin') {
+          navigate('/admin');
+        }
       } else {
         showToast(data.message || 'Login failed', 'error');
       }
@@ -48,6 +53,9 @@ const Modals = () => {
         login(data.token, data.user);
         showToast('Registered successfully', 'success');
         closeModal();
+        if (data.user.role === 'admin') {
+          navigate('/admin');
+        }
       } else {
         showToast(data.message || 'Signup failed', 'error');
       }
