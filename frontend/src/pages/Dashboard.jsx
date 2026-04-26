@@ -98,15 +98,32 @@ const Dashboard = () => {
                         <div className="progress-fill" style={{ width: `${c.progress}%`, background: c.isCompleted ? 'var(--success)' : '' }}></div>
                       </div>
                     </div>
-                    <div className="dash-actions">
-                      <button className={`btn ${c.progress > 0 ? 'btn-primary' : 'btn-outline'}`} style={{ flex: 1 }} onClick={() => navigate(`/learn/${c.courseId}`)}>
-                        {c.progress === 0 ? 'Start Course' : c.isCompleted ? 'Review Course' : 'Resume Course'} <i className={`fas ${c.isCompleted ? 'fa-redo' : 'fa-play'}`}></i>
-                      </button>
-                      {c.isCompleted && (
-                        <button className="btn btn-outline" style={{ flex: 1, marginLeft: '0.5rem' }} onClick={() => navigate(`/certificate/${c.courseId}`)}>
-                          Certificate <i className="fas fa-certificate"></i>
+                    <div className="dash-actions" style={{ flexDirection: 'column', gap: '0.5rem' }}>
+                      <div style={{ display: 'flex', gap: '0.5rem', width: '100%' }}>
+                        <button className={`btn ${c.progress > 0 ? 'btn-primary' : 'btn-outline'}`} style={{ flex: 1 }} onClick={() => navigate(`/learn/${c.courseId}`)}>
+                          {c.progress === 0 ? 'Start Course' : c.isCompleted ? 'Review Course' : 'Resume Course'} <i className={`fas ${c.isCompleted ? 'fa-redo' : 'fa-play'}`}></i>
                         </button>
-                      )}
+                        {c.isCompleted && (
+                          <button className="btn btn-outline" style={{ flex: 1 }} onClick={() => navigate(`/certificate/${c.courseId}`)}>
+                            Certificate <i className="fas fa-certificate"></i>
+                          </button>
+                        )}
+                      </div>
+                      <button 
+                        className="btn btn-ghost" 
+                        style={{ width: '100%', border: '1px solid var(--border)', fontSize: '0.9rem' }} 
+                        onClick={() => {
+                          const content = `SkillHub Study Notes\nCourse: ${c.title}\n\nThis document contains curated notes for your enrolled course.\n\nKeep learning and growing with SkillHub!`;
+                          const blob = new Blob([content], { type: 'text/plain' });
+                          const url = URL.createObjectURL(blob);
+                          const link = document.createElement('a');
+                          link.href = url;
+                          link.download = `${c.title.replace(/\s+/g, '_')}_Notes.txt`;
+                          link.click();
+                        }}
+                      >
+                        <i className="fas fa-download"></i> Download Notes
+                      </button>
                     </div>
                   </div>
                 ))
