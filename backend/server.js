@@ -34,13 +34,15 @@ app.get('/', (req, res) => {
 // ── Database Connection ────────────────────────────────────────────────
 const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/skillhub';
 
+console.log('⏳ Connecting to MongoDB...');
 mongoose.connect(MONGODB_URI)
   .then(() => {
     console.log('✅ MongoDB connected successfully');
   })
   .catch((err) => {
-    console.error(' MongoDB connection error:', err.message);
-    console.log('  Server will continue without database. Some features may not work.');
+    console.error('❌ MongoDB connection error:', err.message);
+    console.log('Current MONGODB_URI starts with:', MONGODB_URI.substring(0, 15) + '...');
+    console.log('Server is running but database-dependent features will fail.');
   });
 
 // ── Start Server ───────────────────────────────────────────────────────

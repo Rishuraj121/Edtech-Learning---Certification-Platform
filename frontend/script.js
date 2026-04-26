@@ -1,4 +1,4 @@
-const API = 'https://edtech-learning-certification-platform.onrender.com'; // Update with your Render URL
+const API = import.meta.env.VITE_API_URL || 'https://edtech-learning-certification-platform.onrender.com';
 
 // State
 let currentUser = null;

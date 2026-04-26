@@ -49,9 +49,11 @@ exports.signup = async (req, res) => {
         message: messages.join(', ')
       });
     }
+    console.error('Signup error:', error);
     res.status(500).json({
       success: false,
-      message: 'Server error during registration'
+      message: 'Server error during registration',
+      error: error.message
     });
   }
 };
@@ -103,9 +105,11 @@ exports.login = async (req, res) => {
       }
     });
   } catch (error) {
+    console.error('Login error:', error);
     res.status(500).json({
       success: false,
-      message: 'Server error during login'
+      message: 'Server error during login',
+      error: error.message
     });
   }
 };
