@@ -1,4 +1,4 @@
-const API = 'https://YOUR_BACKEND_URL'; // Update with your Render URL
+const API = 'https://edtech-learning-certification-platform.onrender.com'; // Update with your Render URL
 
 // State
 let currentUser = null;
