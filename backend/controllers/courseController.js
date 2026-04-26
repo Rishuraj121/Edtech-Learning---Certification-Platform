@@ -11,9 +11,11 @@ exports.getCourses = async (req, res) => {
       courses
     });
   } catch (error) {
+    console.error('Error in getCourses:', error);
     res.status(500).json({
       success: false,
-      message: 'Server error fetching courses'
+      message: 'Server error fetching courses',
+      error: error.message // Sending error message for easier debugging
     });
   }
 };
