@@ -1,0 +1,418 @@
+<!-- 
+  Deployment Instructions:
+  Platform: Vercel
+  Root Directory: frontend
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="SkillHub - Premium EdTech platform. Master Excel, Power BI, SQL, Python and more. Track progress, earn certificates.">
+  <title>SkillHub - Master Skills That Matter</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <a href="#" class="logo" onclick="navigateTo('home');return false;"><i class="fas fa-graduation-cap"></i> Skill<span>Hub</span></a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#" onclick="navigateTo('home');return false;">Home</a></li>
+        <li><a href="#" onclick="navigateTo('courses-page');return false;">Courses</a></li>
+        <li><a href="#" onclick="navigateTo('about-page');return false;">About</a></li>
+        <li><a href="#contact" onclick="navigateTo('home');setTimeout(()=>document.getElementById('contact').scrollIntoView({behavior:'smooth'}),300);return false;">Contact</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="btn btn-outline" id="loginBtn" onclick="openModal('loginModal')">Login</button>
+        <button class="btn btn-primary" id="signupBtn" onclick="openModal('signupModal')">Sign Up</button>
+        <div class="user-menu" id="userMenu" style="display:none;">
+          <button class="btn btn-ghost" id="dashboardBtn" onclick="navigateTo('dashboard-page')"><i class="fas fa-user-circle"></i> <span id="userName"></span></button>
+          <button class="btn btn-outline" onclick="logout()">Logout</button>
+        </div>
+      </div>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu"><i class="fas fa-bars"></i></button>
+    </div>
+  </nav>
+
+  <!-- ══════════════ HOME PAGE ══════════════ -->
+  <div id="homePage">
+    <section class="hero" id="hero">
+      <div class="hero-bg"><div class="orb orb1"></div><div class="orb orb2"></div><div class="orb orb3"></div></div>
+      <div class="container hero-content">
+        <div class="hero-badge"><i class="fas fa-bolt"></i> Next-Gen E-Learning</div>
+        <h1>Master Skills That<br>Accelerate Your <span class="gradient-text">Career</span></h1>
+        <p class="hero-sub">Career-focused programs at accessible prices — sharpen expertise and unlock better opportunities.</p>
+        <div class="hero-highlights">
+          <div class="highlight"><i class="fas fa-chalkboard-teacher"></i> Industry Experts</div>
+          <div class="highlight"><i class="fas fa-certificate"></i> Certificates</div>
+          <div class="highlight"><i class="fas fa-chart-line"></i> Progress Tracking</div>
+        </div>
+        <div class="hero-cta">
+          <button class="btn btn-primary btn-lg" onclick="navigateTo('courses-page')">Explore Courses <i class="fas fa-arrow-right"></i></button>
+        </div>
+        <div class="hero-stats">
+          <div class="stat"><span class="stat-num">50K+</span><span class="stat-label">Learners</span></div>
+          <div class="stat"><span class="stat-num">200+</span><span class="stat-label">Lessons</span></div>
+          <div class="stat"><span class="stat-num">98%</span><span class="stat-label">Satisfaction</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features -->
+    <section class="section features" id="features">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="section-tag">Why Choose Us</span>
+          <h2>What Makes SkillHub <span class="gradient-text">Different</span></h2>
+        </div>
+        <div class="features-grid">
+          <div class="feature-card reveal"><div class="feature-icon"><i class="fas fa-user-tie"></i></div><h3>Expert Instructors</h3><p>Learn from industry veterans who've trained thousands of professionals at top companies.</p></div>
+          <div class="feature-card reveal"><div class="feature-icon"><i class="fas fa-book-open"></i></div><h3>Reading Modules</h3><p>Focused reading content designed for quick mastery without information overload.</p></div>
+          <div class="feature-card reveal"><div class="feature-icon"><i class="fas fa-chart-bar"></i></div><h3>Progress Tracking</h3><p>Visual dashboards show your progress across every course in real time.</p></div>
+          <div class="feature-card reveal"><div class="feature-icon"><i class="fas fa-certificate"></i></div><h3>Verified Certificates</h3><p>Downloadable PDF certificates upon course completion to boost your resume.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Featured Courses (preview) -->
+    <section class="section courses" id="courses-home">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="section-tag">Our Programs</span>
+          <h2>Explore Our <span class="gradient-text">Top Courses</span></h2>
+          <p>Handcrafted programs to give you job-ready skills in the most in-demand fields.</p>
+        </div>
+        <div class="courses-grid" id="homeCoursesGrid"><div class="loading-spinner"><i class="fas fa-spinner fa-spin"></i> Loading courses...</div></div>
+        <div class="text-center" style="margin-top:2.5rem;">
+          <button class="btn btn-outline btn-lg" onclick="navigateTo('courses-page')">View All Courses <i class="fas fa-arrow-right"></i></button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="section testimonials" id="testimonials">
+      <div class="container">
+        <div class="section-header reveal"><span class="section-tag">Success Stories</span><h2>What Our <span class="gradient-text">Learners Say</span></h2></div>
+        <div class="testimonials-grid">
+          <div class="testimonial-card reveal"><div class="stars">★★★★★</div><p>"The Excel Mastery course changed how I handle data. My productivity doubled and I earned a promotion within 3 months!"</p><div class="testimonial-author"><div class="author-avatar"><i class="fas fa-user"></i></div><div><strong>Priya M.</strong><span>Data Analyst, TCS</span></div></div></div>
+          <div class="testimonial-card reveal"><div class="stars">★★★★★</div><p>"Power BI training here was outstanding. The progress tracking kept me motivated throughout the entire course."</p><div class="testimonial-author"><div class="author-avatar"><i class="fas fa-user"></i></div><div><strong>Rahul S.</strong><span>BI Developer, Infosys</span></div></div></div>
+          <div class="testimonial-card reveal"><div class="stars">★★★★★</div><p>"I switched from a non-tech role to a data analyst position thanks to SQL and Python courses. Best investment ever!"</p><div class="testimonial-author"><div class="author-avatar"><i class="fas fa-user"></i></div><div><strong>Anita K.</strong><span>Analyst, Wipro</span></div></div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section class="section contact" id="contact">
+      <div class="container">
+        <div class="contact-grid">
+          <div class="contact-info reveal">
+            <span class="section-tag">Get In Touch</span>
+            <h2>Have Questions? <span class="gradient-text">Reach Out</span></h2>
+            <p>We'd love to hear from you. Our team responds within 24 hours.</p>
+            <div class="contact-details">
+              <div class="contact-item"><i class="fas fa-envelope"></i> hello@skillhub.com</div>
+              <div class="contact-item"><i class="fas fa-map-marker-alt"></i> Punjab, India</div>
+              <div class="contact-item"><i class="fas fa-clock"></i> Mon – Sat, 9AM – 6PM</div>
+            </div>
+          </div>
+          <form class="contact-form reveal" id="contactForm">
+            <div class="form-group"><label for="contactName">Your Name</label><input type="text" id="contactName" required placeholder="Your name"></div>
+            <div class="form-group"><label for="contactEmail">Your Email</label><input type="email" id="contactEmail" required placeholder="your@email.com"></div>
+            <div class="form-group"><label for="contactMessage">Your Message</label><textarea id="contactMessage" rows="5" required placeholder="How can we help?"></textarea></div>
+            <button type="submit" class="btn btn-primary btn-lg" style="width:100%">Send Message <i class="fas fa-paper-plane"></i></button>
+            <div id="contactStatus" class="form-status"></div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-grid">
+          <div class="footer-brand">
+            <a href="#" class="logo" onclick="navigateTo('home');return false;"><i class="fas fa-graduation-cap"></i> Skill<span>Hub</span></a>
+            <p>Empowering careers through quality online education since 2016.</p>
+          </div>
+          <div class="footer-links"><h4>Platform</h4><a href="#" onclick="navigateTo('courses-page');return false;">All Courses</a><a href="#" onclick="navigateTo('about-page');return false;">About</a><a href="#features">Features</a></div>
+          <div class="footer-links"><h4>Company</h4><a href="#contact">Contact</a><a href="#">Careers</a><a href="#">Blog</a></div>
+          <div class="footer-links"><h4>Legal</h4><a href="#">Privacy Policy</a><a href="#">Terms</a><a href="#">Refund Policy</a></div>
+        </div>
+        <div class="footer-bottom"><p>&copy; 2026 SkillHub. All Rights Reserved.</p></div>
+      </div>
+    </footer>
+  </div><!-- end homePage -->
+
+  <!-- ══════════════ COURSES PAGE ══════════════ -->
+  <div id="coursesPage" class="page-wrapper" style="display:none;">
+    <div class="page-hero">
+      <div class="container">
+        <span class="section-tag">All Programs</span>
+        <h1>Explore Our <span class="gradient-text">Course Library</span></h1>
+        <p>Choose from our expertly designed courses and start your learning journey today.</p>
+      </div>
+    </div>
+    <div class="container" style="padding:3rem 1.5rem;">
+      <div class="courses-filter">
+        <button class="filter-btn active" data-cat="all">All</button>
+        <button class="filter-btn" data-cat="data-analytics">Data Analytics</button>
+        <button class="filter-btn" data-cat="programming">Programming</button>
+        <button class="filter-btn" data-cat="design">Design</button>
+        <button class="filter-btn" data-cat="business">Business</button>
+      </div>
+      <div class="courses-grid" id="allCoursesGrid"><div class="loading-spinner"><i class="fas fa-spinner fa-spin"></i> Loading courses...</div></div>
+    </div>
+  </div>
+
+  <!-- ══════════════ ABOUT PAGE ══════════════ -->
+  <div id="aboutPage" class="page-wrapper" style="display:none;">
+    <div class="page-hero">
+      <div class="container">
+        <span class="section-tag">Our Story</span>
+        <h1>About <span class="gradient-text">SkillHub</span></h1>
+        <p>A modern EdTech platform built to democratize professional skill development.</p>
+      </div>
+    </div>
+    <div class="container about-page-body">
+      <div class="about-grid">
+        <div class="about-visual">
+          <div class="about-icon-grid">
+            <div class="about-icon-card"><i class="fas fa-laptop-code"></i></div>
+            <div class="about-icon-card"><i class="fas fa-chart-line"></i></div>
+            <div class="about-icon-card"><i class="fas fa-brain"></i></div>
+            <div class="about-icon-card"><i class="fas fa-award"></i></div>
+          </div>
+          <div class="about-stats-row">
+            <div class="about-stat"><span>16+</span>Years Experience</div>
+            <div class="about-stat"><span>50K+</span>Students Trained</div>
+          </div>
+        </div>
+        <div class="about-text">
+          <h2>Empowering Careers Through <span class="gradient-text">Quality Education</span></h2>
+          <p>SkillHub is a modern e-learning platform established with a mission to make professional skill development accessible. We specialize in data analytics, programming, office productivity, and digital creation modules.</p>
+          <p>Our programs are crafted not just to teach — but to ignite passion for continuous learning. With proven track records of helping learners land positions at top companies, we're committed to your success.</p>
+        </div>
+      </div>
+      <div class="about-benefits">
+        <h2 class="text-center" style="margin-bottom:2rem;">Student <span class="gradient-text">Benefits</span></h2>
+        <div class="benefits-grid">
+          <div class="benefit-card"><i class="fas fa-book-reader"></i><h4>Expert Reading</h4><p>Curated reading modules designed for focused, distraction-free learning.</p></div>
+          <div class="benefit-card"><i class="fas fa-chart-bar"></i><h4>Progress Dashboard</h4><p>Track completion with visual progress bars and resume anytime.</p></div>
+          <div class="benefit-card"><i class="fas fa-certificate"></i><h4>Instant Certificates</h4><p>Download a professional PDF certificate upon course completion.</p></div>
+          <div class="benefit-card"><i class="fas fa-headset"></i><h4>Dedicated Support</h4><p>Expert support team available Monday to Saturday, 9AM–6PM.</p></div>
+          <div class="benefit-card"><i class="fas fa-mobile-alt"></i><h4>Mobile Friendly</h4><p>Learn on any device — phone, tablet, or desktop — anytime.</p></div>
+          <div class="benefit-card"><i class="fas fa-infinity"></i><h4>Lifetime Access</h4><p>Once enrolled, access course content forever — no expiry.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════ DASHBOARD PAGE ══════════════ -->
+  <div id="dashboardPage" class="page-wrapper" style="display:none;">
+    <div class="container dashboard-page">
+      <div class="dash-header">
+        <div>
+          <h1>User <span class="gradient-text">Dashboard</span></h1>
+          <p id="dashWelcome">Welcome back!</p>
+        </div>
+        <button class="btn btn-outline" onclick="navigateTo('courses-page')"><i class="fas fa-plus"></i> Browse Courses</button>
+      </div>
+      
+      <div class="dash-sections">
+        <div class="dash-section">
+          <div class="section-title-wrap">
+            <h2 class="dash-section-title"><i class="fas fa-book-reader"></i> My Courses</h2>
+            <div class="title-line"></div>
+          </div>
+          <div id="dashboardContent" class="dash-grid"></div>
+        </div>
+
+        <div class="dash-section" id="certificateSection" style="margin-top: 4rem;">
+          <div class="section-title-wrap">
+            <h2 class="dash-section-title"><i class="fas fa-award"></i> My Certificates</h2>
+            <div class="title-line"></div>
+          </div>
+          <div id="certificatesGrid" class="dash-grid"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════ CERTIFICATE PAGE ══════════════ -->
+  <div id="certificatePage" class="page-wrapper" style="display:none;">
+    <div class="container">
+      <button class="btn btn-ghost" onclick="navigateTo('dashboard-page')" style="margin-bottom:2rem;"><i class="fas fa-arrow-left"></i> Back to Dashboard</button>
+      <div id="certificateContent"></div>
+    </div>
+  </div>
+
+  <!-- ══════════════ LEARN PAGE ══════════════ -->
+  <div id="learnPage" class="page-wrapper" style="display:none;">
+    <div class="learn-layout">
+      <aside class="learn-sidebar" id="learnSidebar">
+        <div class="sidebar-header">
+          <button class="btn btn-ghost btn-sm" onclick="navigateTo('dashboard-page')"><i class="fas fa-arrow-left"></i> Back</button>
+          <h3 id="learnCourseTitle">Course</h3>
+          <div class="sidebar-progress">
+            <div class="progress-bar-wrap"><div class="progress-bar-fill" id="sidebarProgress" style="width:0%"></div></div>
+            <span id="sidebarProgressText">0% Complete</span>
+          </div>
+        </div>
+        <ul class="lesson-list" id="lessonList"></ul>
+      </aside>
+      <main class="learn-main" id="learnMain">
+        <div class="reading-container">
+          <div id="readingPanel" class="reading-panel">
+            <div class="reading-placeholder">
+              <i class="fas fa-book-open"></i>
+              <p>Select a lesson to start reading...</p>
+            </div>
+          </div>
+        </div>
+        <div class="lesson-info" id="lessonInfo">
+          <h2 id="activeLessonTitle">Select a lesson to begin</h2>
+          <p id="activeLessonMeta"></p>
+          <div id="completionBanner" class="completion-banner" style="display:none;">
+            <i class="fas fa-trophy"></i>
+            <div>
+              <strong>🎉 Course Completed!</strong>
+              <p>You've completed all lessons. Download your certificate!</p>
+            </div>
+            <button class="btn btn-primary" id="downloadCertBtn">Download Certificate <i class="fas fa-download"></i></button>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- ══════════════ COURSE DETAILS PAGE ══════════════ -->
+  <div id="courseDetailsPage" class="page-wrapper" style="display:none;">
+    <div class="container"><div id="courseDetailsContent" class="page-content"></div></div>
+  </div>
+
+  <!-- ══════════════ ENROLLMENT PAGE ══════════════ -->
+  <div id="enrollPage" class="page-wrapper" style="display:none;">
+    <div class="container small-container">
+      <div class="page-content">
+        <h2 class="text-center"><i class="fas fa-edit"></i> Enrollment Details</h2>
+        <p id="enrollCourseTitle" class="text-center gradient-text" style="font-size:1.2rem;font-weight:700;margin:.5rem 0;"></p>
+        <div id="enrollInfoBox" class="info-box"></div>
+        <form id="enrollmentForm">
+          <input type="hidden" id="enrollCourseId">
+          <div class="form-group"><label for="enrollName">Full Name</label><input type="text" id="enrollName" required placeholder="Your full name"></div>
+          <div class="form-group"><label for="enrollPhone">Phone Number</label><input type="tel" id="enrollPhone" required placeholder="Your contact number"></div>
+          <div class="amount-display"><span>Total Amount:</span><span id="enrollTotalAmount" class="price-val">₹0</span></div>
+          <button type="submit" class="btn btn-primary btn-lg" style="width:100%">Proceed to Payment <i class="fas fa-credit-card"></i></button>
+          <button type="button" class="btn btn-ghost" style="width:100%;margin-top:.5rem" onclick="navigateTo('home')">Cancel</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════ PAYMENT PAGE ══════════════ -->
+  <div id="paymentPage" class="page-wrapper" style="display:none;">
+    <div class="container small-container">
+      <div class="page-content">
+        <h2 class="text-center"><i class="fas fa-lock"></i> Confirm Payment</h2>
+        <p class="text-center text-muted">Complete your enrollment for <span id="payCourseName" class="gradient-text" style="font-weight:700;"></span></p>
+        
+        <div class="payment-card">
+          <div class="payment-row"><span>Enrollment ID:</span><span id="payEnrollId" style="font-family:monospace;font-size:0.9rem;"></span></div>
+          <div class="payment-row"><span>Total Amount:</span><strong id="payAmount" class="price-val"></strong></div>
+        </div>
+
+        <div class="payment-methods" style="margin-top:2rem;">
+          <h4>Select Payment Method</h4>
+          
+          <div class="payment-method-options">
+            <div class="method-option active" onclick="selectPaymentMethod('upi')">
+              <input type="radio" name="payMethod" id="methodUPI" checked>
+              <label for="methodUPI"><i class="fas fa-mobile-alt"></i> UPI / PhonePe / GPay</label>
+            </div>
+            <div class="method-option" onclick="selectPaymentMethod('card')">
+              <input type="radio" name="payMethod" id="methodCard">
+              <label for="methodCard"><i class="fas fa-credit-card"></i> Credit / Debit Card</label>
+            </div>
+          </div>
+
+          <div id="upiField" class="method-details active">
+            <div class="form-group">
+              <label for="upiId">Enter UPI ID or Mobile Number</label>
+              <div class="input-with-icon">
+                <i class="fas fa-at"></i>
+                <input type="text" id="upiId" placeholder="user@upi or 9876543210" required>
+              </div>
+              <small class="text-muted">Auto-filled with your saved phone number.</small>
+            </div>
+          </div>
+
+          <div id="cardField" class="method-details">
+            <div class="card-skeleton"><div class="line"></div><div class="line short"></div></div>
+            <p class="text-center text-muted" style="font-size:0.85rem;">Card details section currently in maintenance.</p>
+          </div>
+        </div>
+
+        <button id="confirmPaymentBtn" class="btn btn-primary btn-lg" style="width:100%;margin-top:2rem">Confirm & Pay Now <i class="fas fa-check-circle"></i></button>
+        <button type="button" class="btn btn-ghost" style="width:100%;margin-top:.5rem" onclick="navigateTo('enroll')">Cancel</button>
+        
+        <div class="simulated-gateway" style="margin-top:1.5rem;"><i class="fas fa-shield-alt"></i> Secured 256-bit SSL Encryption</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════ SUCCESS PAGE ══════════════ -->
+  <div id="successPage" class="page-wrapper" style="display:none;">
+    <div class="container text-center">
+      <div class="success-card">
+        <div class="success-icon"><i class="fas fa-check-circle"></i></div>
+        <h2>Enrollment Successful!</h2>
+        <p>Congratulations! You're now enrolled. Head to your dashboard to start learning.</p>
+        <div class="success-actions">
+          <button class="btn btn-primary" onclick="navigateTo('dashboard-page')">Go to Dashboard <i class="fas fa-tachometer-alt"></i></button>
+          <button class="btn btn-outline" onclick="navigateTo('home')">Back to Home</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════ MODALS ══════════════ -->
+  <div class="modal-overlay" id="loginModal">
+    <div class="modal">
+      <button class="modal-close" onclick="closeModal('loginModal')">&times;</button>
+      <h2><i class="fas fa-sign-in-alt"></i> Welcome Back</h2>
+      <p>Login to access your dashboard and courses.</p>
+      <form id="loginForm">
+        <div class="form-group"><label for="loginEmail">Email</label><input type="email" id="loginEmail" required placeholder="your@email.com"></div>
+        <div class="form-group"><label for="loginPassword">Password</label><input type="password" id="loginPassword" required placeholder="••••••••"></div>
+        <button type="submit" class="btn btn-primary" style="width:100%">Login <i class="fas fa-arrow-right"></i></button>
+        <div id="loginStatus" class="form-status"></div>
+      </form>
+      <p class="modal-switch">Don't have an account? <a href="#" onclick="switchModal('loginModal','signupModal');return false;">Sign Up</a></p>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="signupModal">
+    <div class="modal">
+      <button class="modal-close" onclick="closeModal('signupModal')">&times;</button>
+      <h2><i class="fas fa-user-plus"></i> Create Account</h2>
+      <p>Join SkillHub and start learning today.</p>
+      <form id="signupForm">
+        <div class="form-group"><label for="signupName">Full Name</label><input type="text" id="signupName" required placeholder="John Doe"></div>
+        <div class="form-group"><label for="signupEmail">Email</label><input type="email" id="signupEmail" required placeholder="your@email.com"></div>
+        <div class="form-group"><label for="signupPassword">Password</label><input type="password" id="signupPassword" required minlength="6" placeholder="Min 6 characters"></div>
+        <button type="submit" class="btn btn-primary" style="width:100%">Create Account <i class="fas fa-arrow-right"></i></button>
+        <div id="signupStatus" class="form-status"></div>
+      </form>
+      <p class="modal-switch">Already have an account? <a href="#" onclick="switchModal('signupModal','loginModal');return false;">Login</a></p>
+    </div>
+  </div>
+
+  <div class="toast-container" id="toastContainer"></div>
+  <script src="script.js"></script>
+</body>
+</html>
