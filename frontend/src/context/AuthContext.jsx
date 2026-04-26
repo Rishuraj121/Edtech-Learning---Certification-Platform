@@ -7,7 +7,8 @@ export const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(localStorage.getItem('skillhub_token'));
   const [loading, setLoading] = useState(true);
 
-  const API = import.meta.env.VITE_API_URL || '';
+  // Use explicit backend URL in production, or empty string to use Vite proxy locally
+  const API = import.meta.env.VITE_API_URL || (import.meta.env.MODE === 'production' ? 'https://edtech-learning-certification-platform.onrender.com' : '');
 
   useEffect(() => {
     const checkAuth = async () => {
