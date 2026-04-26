@@ -16,6 +16,7 @@ import Payment from './pages/Payment';
 import Success from './pages/Success';
 import Certificate from './pages/Certificate';
 import About from './pages/About';
+import Contact from './pages/Contact';
 
 import { AuthProvider } from './context/AuthContext';
 
@@ -56,6 +57,7 @@ function App() {
             <Route path="/success" element={<Success />} />
             <Route path="/certificate/:id" element={<Certificate />} />
             <Route path="/about" element={<About />} />
+            <Route path="/contact" element={<Contact />} />
           </Routes>
           <Footer />
           <Modals />

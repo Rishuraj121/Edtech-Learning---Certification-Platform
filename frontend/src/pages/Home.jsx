@@ -56,22 +56,22 @@ const Home = () => {
       {/* 3. Features Section */}
       <section className="section features" style={{ padding: '5rem 0' }}>
         <div className="container">
-          <div className="section-header reveal">
+          <div className="section-header">
             <span className="section-tag">Why Choose Us</span>
             <h2>Learn Faster, <span className="gradient-text">Smarter</span></h2>
           </div>
           <div className="benefits-grid" style={{ marginTop: '3rem' }}>
-            <div className="benefit-card reveal">
+            <div className="benefit-card">
               <i className="fas fa-clock" style={{ fontSize: '2.5rem', color: 'var(--primary)', marginBottom: '1rem' }}></i>
               <h4>Self-Paced Learning</h4>
               <p>No deadlines. Learn completely at your own pace with lifetime access to all course materials.</p>
             </div>
-            <div className="benefit-card reveal">
+            <div className="benefit-card">
               <i className="fas fa-chalkboard-teacher" style={{ fontSize: '2.5rem', color: 'var(--primary)', marginBottom: '1rem' }}></i>
               <h4>Expert Instructors</h4>
               <p>Learn directly from industry professionals with years of real-world experience.</p>
             </div>
-            <div className="benefit-card reveal">
+            <div className="benefit-card">
               <i className="fas fa-certificate" style={{ fontSize: '2.5rem', color: 'var(--primary)', marginBottom: '1rem' }}></i>
               <h4>Verifiable Certificates</h4>
               <p>Earn a unique, verifiable PDF certificate upon completing every course.</p>
@@ -83,7 +83,7 @@ const Home = () => {
       {/* 4. Top Courses Section */}
       <section className="section courses" id="courses-home" style={{ background: 'var(--bg-alt)' }}>
         <div className="container">
-          <div className="section-header reveal">
+          <div className="section-header">
             <span className="section-tag">Our Programs</span>
             <h2>Explore Our <span className="gradient-text">Top Courses</span></h2>
           </div>
@@ -92,7 +92,7 @@ const Home = () => {
               <div className="loading-spinner"><i className="fas fa-spinner fa-spin"></i> Loading courses...</div>
             ) : (
               courses.map(course => (
-                <div className="course-card reveal" key={course._id}>
+                <div className="course-card" key={course._id}>
                   <div className="course-thumb" style={{ background: 'linear-gradient(135deg,#6c5ce7,#a29bfe)' }}>
                     <i className={`fas ${course.icon || 'fa-laptop-code'}`}></i>
                   </div>
@@ -118,15 +118,15 @@ const Home = () => {
       <section className="stats-section" style={{ padding: '4rem 0', background: 'linear-gradient(135deg, var(--bg-alt), var(--bg-main))', borderTop: '1px solid rgba(255,255,255,0.05)', borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
         <div className="container">
           <div style={{ display: 'flex', justifyContent: 'space-around', flexWrap: 'wrap', gap: '2rem', textAlign: 'center' }}>
-            <div className="stat-box reveal">
+            <div className="stat-box">
               <h2 className="gradient-text" style={{ fontSize: '3rem', marginBottom: '0.5rem' }}>50K+</h2>
               <p style={{ color: 'var(--text-muted)' }}>Active Learners</p>
             </div>
-            <div className="stat-box reveal">
+            <div className="stat-box">
               <h2 className="gradient-text" style={{ fontSize: '3rem', marginBottom: '0.5rem' }}>98%</h2>
               <p style={{ color: 'var(--text-muted)' }}>Completion Rate</p>
             </div>
-            <div className="stat-box reveal">
+            <div className="stat-box">
               <h2 className="gradient-text" style={{ fontSize: '3rem', marginBottom: '0.5rem' }}>4.9/5</h2>
               <p style={{ color: 'var(--text-muted)' }}>Average Rating</p>
             </div>
@@ -137,12 +137,12 @@ const Home = () => {
       {/* 6. Testimonials Section */}
       <section className="section testimonials" style={{ padding: '5rem 0' }}>
         <div className="container">
-          <div className="section-header reveal">
+          <div className="section-header">
             <span className="section-tag">Success Stories</span>
             <h2>What Our <span className="gradient-text">Students Say</span></h2>
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem', marginTop: '3rem' }}>
-            <div className="review-card reveal" style={{ background: 'var(--bg-alt)', padding: '2rem', borderRadius: '16px', border: '1px solid rgba(255,255,255,0.05)' }}>
+            <div className="review-card" style={{ background: 'var(--bg-alt)', padding: '2rem', borderRadius: '16px', border: '1px solid rgba(255,255,255,0.05)' }}>
               <div style={{ display: 'flex', color: '#f1c40f', marginBottom: '1rem' }}><i className="fas fa-star"></i><i className="fas fa-star"></i><i className="fas fa-star"></i><i className="fas fa-star"></i><i className="fas fa-star"></i></div>
               <p style={{ fontStyle: 'italic', marginBottom: '1.5rem', color: 'var(--text-muted)' }}>"The Data Analytics course completely changed my career trajectory. Within 3 months of completing it, I landed a job at a top tech company."</p>
               <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
@@ -150,7 +150,7 @@ const Home = () => {
                 <div><h5 style={{ margin: 0 }}>Sarah Jenkins</h5><p style={{ margin: 0, fontSize: '0.8rem', color: 'var(--primary-light)' }}>Data Analyst</p></div>
               </div>
             </div>
-            <div className="review-card reveal" style={{ background: 'var(--bg-alt)', padding: '2rem', borderRadius: '16px', border: '1px solid rgba(255,255,255,0.05)' }}>
+            <div className="review-card" style={{ background: 'var(--bg-alt)', padding: '2rem', borderRadius: '16px', border: '1px solid rgba(255,255,255,0.05)' }}>
               <div style={{ display: 'flex', color: '#f1c40f', marginBottom: '1rem' }}><i className="fas fa-star"></i><i className="fas fa-star"></i><i className="fas fa-star"></i><i className="fas fa-star"></i><i className="fas fa-star"></i></div>
               <p style={{ fontStyle: 'italic', marginBottom: '1.5rem', color: 'var(--text-muted)' }}>"I tried learning Python on my own but kept getting stuck. The structured reading modules here made complex concepts incredibly easy to grasp."</p>
               <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
