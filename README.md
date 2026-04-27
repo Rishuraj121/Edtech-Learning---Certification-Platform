@@ -41,6 +41,9 @@
                     │   - Users, Courses, Enrollments        │
                     │   - Progress Tracking, Contacts        │
                     └────────────────────────────────────────┘
+
+
+                    
 skillhub/
 ├── backend/                          # Node.js + Express Backend
 │   ├── controllers/                  # Business Logic
