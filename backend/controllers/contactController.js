@@ -52,3 +52,34 @@ exports.getContacts = async (req, res) => {
     });
   }
 };
+
+// @desc    Reply to a contact message (admin only)
+// @route   PUT /api/contact/:id/reply
+exports.replyContact = async (req, res) => {
+  try {
+    const { reply } = req.body;
+    if (!reply) {
+      return res.status(400).json({ success: false, message: 'Please provide a reply message' });
+    }
+
+    const contact = await Contact.findById(req.params.id);
+    if (!contact) {
+      return res.status(404).json({ success: false, message: 'Message not found' });
+    }
+
+    contact.reply = reply;
+    contact.status = 'replied';
+    await contact.save();
+
+    res.json({
+      success: true,
+      message: 'Reply sent successfully',
+      contact
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: 'Server error replying to message'
+    });
+  }
+};

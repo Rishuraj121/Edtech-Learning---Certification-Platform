@@ -107,7 +107,7 @@ exports.getMyCourses = async (req, res) => {
       if (!course) return null;
       const totalLessons = course.lessons ? course.lessons.length : 0;
       const completedCount = e.completedLessons ? e.completedLessons.length : 0;
-      const progress = totalLessons > 0 ? Math.round((completedCount / totalLessons) * 100) : 0;
+      const progress = totalLessons > 0 ? Math.min(100, Math.round((completedCount / totalLessons) * 100)) : 0;
 
       return {
         enrollmentId: e._id,
@@ -119,6 +119,7 @@ exports.getMyCourses = async (req, res) => {
         category: course.category,
         icon: course.icon,
         price: course.price,
+        notesLink: course.notesLink,
         totalLessons,
         completedLessons: e.completedLessons || [],
         lastAccessedLesson: e.lastAccessedLesson,
@@ -176,7 +177,7 @@ exports.updateProgress = async (req, res) => {
 
     const totalLessons = course ? course.lessons.length : 0;
     const completedCount = enrollment.completedLessons.length;
-    const progress = totalLessons > 0 ? Math.round((completedCount / totalLessons) * 100) : 0;
+    const progress = totalLessons > 0 ? Math.min(100, Math.round((completedCount / totalLessons) * 100)) : 0;
 
     res.json({
       success: true,

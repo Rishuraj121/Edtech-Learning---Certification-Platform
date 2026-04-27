@@ -141,6 +141,79 @@ const courses = [
       'M Language Fundamentals',
       'Building Automated Pipelines'
     ], 'Lp_pD41p-m8')
+  },
+  {
+    title: 'Full Stack Web Development',
+    description: 'Learn to build complete web applications from scratch. Master HTML, CSS, JavaScript, React for the frontend, and Node.js, Express, and MongoDB for the backend. Build real-world projects and become a job-ready full stack developer.',
+    price: 3499,
+    duration: '24 Hours',
+    lessonCount: 8,
+    instructor: 'SkillHub Expert',
+    category: 'programming',
+    icon: 'fa-code',
+    lessons: makeLessons([
+      'HTML5 & CSS3 Basics',
+      'JavaScript Fundamentals',
+      'Advanced DOM Manipulation',
+      'React Components & State',
+      'Node.js & Express API',
+      'MongoDB & Mongoose',
+      'Authentication & Authorization',
+      'Deployment & Hosting'
+    ], 'pKd0Rpw7O48')
+  },
+  {
+    title: 'UI/UX Design Masterclass',
+    description: 'Master the art of creating beautiful and functional user interfaces. Learn user research, wireframing, prototyping, and visual design principles. Get hands-on experience with Figma and build a stunning portfolio.',
+    price: 2999,
+    duration: '18 Hours',
+    lessonCount: 6,
+    instructor: 'SkillHub Expert',
+    category: 'design',
+    icon: 'fa-paint-brush',
+    lessons: makeLessons([
+      'Introduction to UI/UX',
+      'User Research & Personas',
+      'Wireframing Basics',
+      'Figma Masterclass',
+      'Prototyping & Interactions',
+      'Design Systems & Handoff'
+    ], 'c9Wg6Cb_YlU')
+  },
+  {
+    title: 'Digital Marketing Fundamentals',
+    description: 'Learn the core concepts of digital marketing. Master SEO, Social Media Marketing, Email Marketing, and Content Strategy. Understand how to run successful ad campaigns and analyze metrics to drive business growth.',
+    price: 1999,
+    duration: '10 Hours',
+    lessonCount: 5,
+    instructor: 'SkillHub Expert',
+    category: 'business',
+    icon: 'fa-bullhorn',
+    lessons: makeLessons([
+      'Digital Marketing Overview',
+      'SEO Best Practices',
+      'Social Media Strategies',
+      'Email Marketing Campaigns',
+      'Analytics & Reporting'
+    ], 'bixR-KIJKYM')
+  },
+  {
+    title: 'Cloud Computing with AWS',
+    description: 'Get started with Cloud Computing. Learn the fundamentals of Amazon Web Services (AWS), including EC2, S3, RDS, and IAM. Prepare for the AWS Cloud Practitioner certification and build scalable cloud infrastructure.',
+    price: 2999,
+    duration: '15 Hours',
+    lessonCount: 6,
+    instructor: 'SkillHub Expert',
+    category: 'programming',
+    icon: 'fa-cloud',
+    lessons: makeLessons([
+      'Introduction to Cloud Computing',
+      'AWS Core Services (EC2 & S3)',
+      'Databases in the Cloud (RDS)',
+      'Security & IAM',
+      'Serverless Architecture',
+      'Deploying Applications'
+    ], '3XFODm2mUiw')
   }
 ];
 

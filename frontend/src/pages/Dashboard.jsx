@@ -113,16 +113,20 @@ const Dashboard = () => {
                         className="btn btn-ghost" 
                         style={{ width: '100%', border: '1px solid var(--border)', fontSize: '0.9rem' }} 
                         onClick={() => {
-                          const content = `SkillHub Study Notes\nCourse: ${c.title}\n\nThis document contains curated notes for your enrolled course.\n\nKeep learning and growing with SkillHub!`;
-                          const blob = new Blob([content], { type: 'text/plain' });
-                          const url = URL.createObjectURL(blob);
-                          const link = document.createElement('a');
-                          link.href = url;
-                          link.download = `${c.title.replace(/\s+/g, '_')}_Notes.txt`;
-                          link.click();
+                          if (c.notesLink) {
+                            window.open(c.notesLink, '_blank');
+                          } else {
+                            const content = `SkillHub Study Notes\nCourse: ${c.title}\n\nThis document contains curated notes for your enrolled course.\n\nKeep learning and growing with SkillHub!`;
+                            const blob = new Blob([content], { type: 'text/plain' });
+                            const url = URL.createObjectURL(blob);
+                            const link = document.createElement('a');
+                            link.href = url;
+                            link.download = `${c.title.replace(/\s+/g, '_')}_Notes.txt`;
+                            link.click();
+                          }
                         }}
                       >
-                        <i className="fas fa-download"></i> Download Notes
+                        <i className="fas fa-download"></i> {c.notesLink ? 'Open Notes' : 'Download Notes'}
                       </button>
                     </div>
                   </div>

@@ -16,6 +16,15 @@ const contactSchema = new mongoose.Schema({
     required: [true, 'Please provide a message'],
     maxlength: [1000, 'Message cannot exceed 1000 characters']
   },
+  status: {
+    type: String,
+    enum: ['pending', 'replied'],
+    default: 'pending'
+  },
+  reply: {
+    type: String,
+    default: ''
+  },
   createdAt: {
     type: Date,
     default: Date.now

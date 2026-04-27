@@ -63,6 +63,10 @@ const courseSchema = new mongoose.Schema({
     type: String,
     default: 'fa-laptop-code'
   },
+  notesLink: {
+    type: String,
+    default: ''
+  },
   lessons: [lessonSchema],
   createdAt: {
     type: Date,

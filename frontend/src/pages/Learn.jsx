@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useState, useContext, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
 
@@ -10,6 +10,13 @@ const Learn = () => {
   const [myCourseData, setMyCourseData] = useState(null);
   const [activeLesson, setActiveLesson] = useState(null);
   const [loading, setLoading] = useState(true);
+  const readingPanelRef = useRef(null);
+
+  useEffect(() => {
+    if (readingPanelRef.current) {
+      readingPanelRef.current.scrollTop = 0;
+    }
+  }, [activeLesson]);
 
   useEffect(() => {
     const fetchLearnData = async () => {
@@ -130,7 +137,7 @@ const Learn = () => {
         </aside>
         <main className="learn-main" id="learnMain">
           <div className="reading-container">
-            <div id="readingPanel" className="reading-panel" onScroll={handleScroll}>
+            <div id="readingPanel" className="reading-panel" ref={readingPanelRef} onScroll={handleScroll}>
               {activeLesson ? (
                 <div dangerouslySetInnerHTML={{ __html: activeLesson.content }} />
               ) : (

@@ -691,3 +691,5 @@ h3 { font-size: 1.5rem; }
 .stat-box { flex: 1; min-width: 200px; padding: 2rem; background: rgba(0,0,0,0.2); border-radius: 16px; border: 1px solid rgba(255,255,255,0.05); }
 .trusted-by span { transition: opacity 0.3s; }
 .trusted-by span:hover { opacity: 1 !important; color: var(--primary-light); }
+@ m e d i a   ( m a x - w i d t h :   9 9 2 p x )   {   . c o u r s e - c o n t e n t - g r i d   {   g r i d - t e m p l a t e - c o l u m n s :   1 f r   ! i m p o r t a n t ;   }   }  
+ 

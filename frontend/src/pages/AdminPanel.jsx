@@ -20,9 +20,14 @@ const AdminPanel = () => {
     price: '',
     duration: '',
     category: 'programming',
-    icon: 'fa-laptop-code'
+    icon: 'fa-laptop-code',
+    notesLink: ''
   });
   const [editingId, setEditingId] = useState(null);
+  
+  // State for replying to messages
+  const [replyMessageId, setReplyMessageId] = useState(null);
+  const [replyText, setReplyText] = useState('');
 
   useEffect(() => {
     if (!user || user.role !== 'admin') {
@@ -75,7 +80,7 @@ const AdminPanel = () => {
       if (data.success) {
         showToast(editingId ? 'Course updated' : 'Course added', 'success');
         setEditingId(null);
-        setCourseForm({ title: '', description: '', price: '', duration: '', category: 'programming', icon: 'fa-laptop-code' });
+        setCourseForm({ title: '', description: '', price: '', duration: '', category: 'programming', icon: 'fa-laptop-code', notesLink: '' });
         fetchData();
       } else {
         showToast(data.message, 'error');
@@ -103,6 +108,31 @@ const AdminPanel = () => {
     }
   };
 
+  const handleReplySubmit = async (e, msgId) => {
+    e.preventDefault();
+    try {
+      const res = await fetch(`${API}/api/contact/${msgId}/reply`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({ reply: replyText })
+      });
+      const data = await res.json();
+      if (data.success) {
+        showToast('Reply sent successfully', 'success');
+        setReplyMessageId(null);
+        setReplyText('');
+        fetchData();
+      } else {
+        showToast(data.message, 'error');
+      }
+    } catch (err) {
+      showToast('Reply failed', 'error');
+    }
+  };
+
   const startEdit = (course) => {
     setEditingId(course._id);
     setCourseForm({
@@ -111,7 +141,8 @@ const AdminPanel = () => {
       price: course.price,
       duration: course.duration,
       category: course.category,
-      icon: course.icon || 'fa-laptop-code'
+      icon: course.icon || 'fa-laptop-code',
+      notesLink: course.notesLink || ''
     });
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -165,9 +196,13 @@ const AdminPanel = () => {
                   <label>Icon Class (FontAwesome)</label>
                   <input type="text" value={courseForm.icon} onChange={(e) => setCourseForm({...courseForm, icon: e.target.value})} placeholder="fa-laptop-code" />
                 </div>
+                <div className="form-group">
+                  <label>Notes Link (URL - Google Drive, Dropbox, etc)</label>
+                  <input type="url" value={courseForm.notesLink} onChange={(e) => setCourseForm({...courseForm, notesLink: e.target.value})} placeholder="https://..." />
+                </div>
                 <div style={{ gridColumn: 'span 2', display: 'flex', gap: '1rem' }}>
                   <button type="submit" className="btn btn-primary" style={{ flex: 1 }}>{editingId ? 'Update Course' : 'Create Course'}</button>
-                  {editingId && <button type="button" className="btn btn-outline" onClick={() => {setEditingId(null); setCourseForm({title:'', description:'', price:'', category:'Programming', icon:'fa-laptop-code'})}}>Cancel</button>}
+                  {editingId && <button type="button" className="btn btn-outline" onClick={() => {setEditingId(null); setCourseForm({title:'', description:'', price:'', category:'programming', icon:'fa-laptop-code', notesLink:''})}}>Cancel</button>}
                 </div>
               </form>
             </div>
@@ -200,7 +235,37 @@ const AdminPanel = () => {
                     <strong>{msg.name} ({msg.email})</strong>
                     <span style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>{new Date(msg.createdAt).toLocaleString()}</span>
                   </div>
-                  <p style={{ color: '#eee', lineHeight: '1.6' }}>{msg.message}</p>
+                  <p style={{ color: '#eee', lineHeight: '1.6', marginBottom: '1rem' }}>{msg.message}</p>
+                  
+                  {msg.status === 'replied' ? (
+                    <div style={{ background: 'rgba(108, 92, 231, 0.1)', padding: '1rem', borderRadius: '0.5rem', borderLeft: '4px solid var(--primary)' }}>
+                      <strong>Your Reply:</strong>
+                      <p style={{ marginTop: '0.5rem', color: '#ccc' }}>{msg.reply}</p>
+                    </div>
+                  ) : (
+                    <div>
+                      {replyMessageId === msg._id ? (
+                        <form onSubmit={(e) => handleReplySubmit(e, msg._id)} style={{ marginTop: '1rem' }}>
+                          <textarea 
+                            value={replyText} 
+                            onChange={(e) => setReplyText(e.target.value)} 
+                            placeholder="Write your reply..." 
+                            required 
+                            rows="3" 
+                            style={{ width: '100%', padding: '0.8rem', borderRadius: '0.5rem', border: '1px solid var(--border)', background: 'var(--bg-secondary)', color: 'var(--text-main)', marginBottom: '0.5rem' }}
+                          ></textarea>
+                          <div style={{ display: 'flex', gap: '0.5rem' }}>
+                            <button type="submit" className="btn btn-primary btn-sm">Send Reply</button>
+                            <button type="button" className="btn btn-outline btn-sm" onClick={() => { setReplyMessageId(null); setReplyText(''); }}>Cancel</button>
+                          </div>
+                        </form>
+                      ) : (
+                        <button className="btn btn-outline btn-sm" onClick={() => setReplyMessageId(msg._id)}>
+                          <i className="fas fa-reply"></i> Reply
+                        </button>
+                      )}
+                    </div>
+                  )}
                 </div>
               ))}
             </div>
