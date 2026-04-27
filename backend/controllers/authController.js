@@ -76,10 +76,8 @@ exports.login = async (req, res) => {
       });
     }
 
-    const emailStr = email.trim().toLowerCase();
-
     // Find user and include password
-    const user = await User.findOne({ email: emailStr }).select('+password').populate('enrolledCourses');
+    const user = await User.findOne({ email }).select('+password').populate('enrolledCourses');
     if (!user) {
       return res.status(401).json({
         success: false,

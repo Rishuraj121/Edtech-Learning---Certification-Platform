@@ -231,21 +231,39 @@ const seedDB = async () => {
     const createdCourses = await Course.insertMany(courses);
     console.log(`📚 Seeded ${createdCourses.length} courses with lessons`);
 
-    // Create or update admin user
-    let admin = await User.findOne({ email: 'ujjwal@gmail.com' });
-    if (!admin) {
+    // Create or update regular user (ujjwal@gmail.com)
+    let user = await User.findOne({ email: 'ujjwal@gmail.com' });
+    if (!user) {
       await User.create({
         name: 'Ujjwal',
         email: 'ujjwal@gmail.com',
-        password: '12456',
+        password: 'ujjwal',
+        role: 'user'
+      });
+      console.log('👤 Regular user created (ujjwal@gmail.com / ujjwal)');
+    } else {
+      user.password = 'ujjwal';
+      user.name = 'Ujjwal';
+      user.role = 'user';
+      await user.save();
+      console.log('👤 Regular user updated (ujjwal@gmail.com / ujjwal)');
+    }
+
+    // Create or update admin user (admin@gmail.com)
+    let admin = await User.findOne({ email: 'admin@gmail.com' });
+    if (!admin) {
+      await User.create({
+        name: 'Admin User',
+        email: 'admin@gmail.com',
+        password: '123456',
         role: 'admin'
       });
-      console.log('👤 Admin user created (ujjwal@gmail.com / 12456)');
+      console.log('👤 Admin user created (admin@gmail.com / 123456)');
     } else {
-      admin.password = '12456';
-      admin.name = 'Ujjwal';
+      admin.password = '123456';
+      admin.role = 'admin';
       await admin.save();
-      console.log('👤 Admin user password updated (ujjwal@gmail.com / 12456)');
+      console.log('👤 Admin user updated (admin@gmail.com / 123456)');
     }
 
     console.log('\n✅ Database seeded successfully!');
